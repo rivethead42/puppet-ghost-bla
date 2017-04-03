@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+
+# allow the container to be started with `--user`
+if [[ "$*" == npm*start* ]] && [ "$(id -u)" = '0' ]; then
+	chown -R user "<%= @ghost_content_dir %>"
+	exec gosu user "$BASH_SOURCE" "$@"
+fi
+
+if [[ "$*" == npm*start* ]]; then
+	baseDir="<%= @ghost_source_dir %>/content"
+	for dir in "$baseDir"/*/ "$baseDir"/themes/*/; do
+		targetDir="<%= @ghost_content_dir %>/${dir#$baseDir/}"
+		mkdir -p "$targetDir"
+		if [ -z "$(ls -A "$targetDir")" ]; then
+			tar -c --one-file-system -C "$dir" . | tar xC "$targetDir"
+		fi
+	done
+
+	if [ ! -e "<%= @ghost_content_dir %>/config.js" ]; then
+		sed -r '
+			s/127\.0\.0\.1/0.0.0.0/g;
+			s!path.join\(__dirname, (.)/content!path.join("<%= @ghost_content_dir %>", \1!g;
+		' "<%= @ghost_source_dir %>/config.example.js" > "<%= @ghost_content_dir %>/config.js"
+	fi
+fi
+
+exec "$@"

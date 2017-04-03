@@ -10,15 +10,15 @@
 #   Explanation of what this parameter affects and what it defaults to.
 #   e.g. "Specify one or more upstream ntp servers as an array."
 #
-class ghost (
-  $package_name = $::ghost::params::package_name,
-  $service_name = $::ghost::params::service_name,
+class ghost() (
+  $ghost_version     = $::ghost::params::ghost_version,
+  $ghost_source_dir  = $::ghost::params::ghost_source_dir,
+  $ghost_content_dir = $::ghost::params::ghost_content_dir,
 ) inherits ::ghost::params {
 
   # validate parameters here
 
   class { '::ghost::install': } ->
-  class { '::ghost::config': } ~>
-  class { '::ghost::service': } ->
+  class { '::ghost::config': } ->
   Class['::ghost']
 }

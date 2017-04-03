@@ -4,17 +4,7 @@
 # It sets variables according to platform.
 #
 class ghost::params {
-  case $::osfamily {
-    'Debian': {
-      $package_name = 'ghost'
-      $service_name = 'ghost'
-    }
-    'RedHat', 'Amazon': {
-      $package_name = 'ghost'
-      $service_name = 'ghost'
-    }
-    default: {
-      fail("${::operatingsystem} not supported")
-    }
-  }
+  $ghost_version = '1.7'
+  $ghost_source_dir = '/usr/src/ghost'
+  $ghost_content_dir = '/var/lib/ghost'
 }
