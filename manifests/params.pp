@@ -7,6 +7,6 @@ class ghost::params {
   $ghost_version = '1.7'
   $ghost_source_dir = '/usr/src/ghost'
   $ghost_content_dir = '/var/lib/ghost'
-  ghost_group = 'ghost'
-  ghost_user = 'ghost'
+  $ghost_group = 'ghost'
+  $ghost_user = 'ghost'
 }

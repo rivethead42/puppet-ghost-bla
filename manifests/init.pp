@@ -10,7 +10,7 @@
 #   Explanation of what this parameter affects and what it defaults to.
 #   e.g. "Specify one or more upstream ntp servers as an array."
 #
-class ghost() (
+class ghost(
   $ghost_version     = $::ghost::params::ghost_version,
   $ghost_source_dir  = $::ghost::params::ghost_source_dir,
   $ghost_content_dir = $::ghost::params::ghost_content_dir,
