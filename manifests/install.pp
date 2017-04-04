@@ -22,9 +22,12 @@ class ghost::install(
     command     => 'unzip ghost.zip',
     path        => '/usr/bin',
     cwd         => $ghost_source_dir,
+    creates     => "${ghost_source_dir}/package.json"
   }
   -> exec { 'run_npm':
     command     => 'npm install --production',
     path        => '/usr/bin',
+    cwd         => $ghost_source_dir,
+    creates     => "${ghost_source_dir}/node_modules"
   }
 }
