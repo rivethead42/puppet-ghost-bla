@@ -12,7 +12,7 @@ class ghost::install(
     ensure => directory,
     recurse => true,
   }
-  ->wget::fetch { "download_ghost":
+  -> wget::fetch { "download_ghost":
     source      => "https://github.com/TryGhost/Ghost/releases/download/${ghost_version}/Ghost-${ghost_version}.zip",
     destination => "${ghost_source_dir}/ghost.zip",
     timeout     => 0,
@@ -22,11 +22,9 @@ class ghost::install(
     command     => 'unzip ghost.zip',
     path        => '/usr/bin',
     cwd         => $ghost_source_dir,
-    refreshonly => true,
   }
   -> exec { 'run_npm':
     command     => 'npm install --production',
     path        => '/usr/bin',
-    refreshonly => true,
   }
 }
