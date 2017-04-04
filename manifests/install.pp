@@ -10,7 +10,7 @@ class ghost::install(
 
   file { $ghost_source_dir:
     ensure => directory,
-    recuse => true,
+    recurse => true,
   }
   ->wget::fetch { "download_ghost":
     source      => "https://github.com/TryGhost/Ghost/releases/download/${ghost_version}/Ghost-${ghost_version}.zip",
