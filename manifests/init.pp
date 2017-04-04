@@ -14,6 +14,8 @@ class ghost() (
   $ghost_version     = $::ghost::params::ghost_version,
   $ghost_source_dir  = $::ghost::params::ghost_source_dir,
   $ghost_content_dir = $::ghost::params::ghost_content_dir,
+  $ghost_group       = $ghost::params::ghost_group,
+  $ghost_user        = $ghost::params::ghost_user,
 ) inherits ::ghost::params {
 
   # validate parameters here
